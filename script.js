@@ -16,7 +16,7 @@ const currLocationbtn = document.getElementById("curr-location");
 
 //keyup
 searchbox.addEventListener("keyup", function(event) {
-    if (event.code === 'Enter') {
+    if (event.keyCode === 13) {
         searchEvent()
     }
 });
