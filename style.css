@@ -72,9 +72,10 @@
     justify-content: space-around;
     align-items: center;
     background: linear-gradient(rgba(93, 93, 219, 0.2),rgba(63, 63, 202, 0.2));
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     border-radius: 20px;
+    text-align: center;
 }
 
 
@@ -239,8 +240,8 @@
         font-size: 1.6em;
     }
     .current-weather,.alert{
-        width: 200px;
-        height: 200px
+        width: 300px;
+        height: 300px
     }
     .other-info{
         margin-top: 5px;
