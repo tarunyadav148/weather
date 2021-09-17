@@ -13,6 +13,7 @@ const humidity = document.getElementById("humidity-data");
 const uvi = document.getElementById("uvi-data");
 const alerts = document.getElementById("alert-data");
 const currLocationbtn = document.getElementById("curr-location");
+const mainDesc = document.getElementById("main-desc");
 
 
 
@@ -22,6 +23,7 @@ function getTime(unixTime){
     return date.toLocaleTimeString('en-IN').toUpperCase();
 }
 function render(data){
+    console.log(data)
     city.innerHTML = data["name"];
     currTemp.innerHTML = data["main"]["temp"].toPrecision(3)+ "&#176c";
     iconCode = data["weather"][0]["icon"];
@@ -33,6 +35,7 @@ function render(data){
     sunset.innerHTML  = getTime(data["sys"]["sunset"]*1000);
     feelsLike.innerHTML = data["main"]["feels_like"].toPrecision(3) + "&#176c";
     humidity.innerHTML = data["main"]["humidity"] + "%";
+    mainDesc.innerHTML = data["weather"][0]["main"];
     setHumidityStat(data["main"]["humidity"]);
     setVaiOneCallApi(data["coord"]["lat"],data["coord"]["lon"]);
 

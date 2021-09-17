@@ -71,7 +71,7 @@
 }
 
 .current-weather{
-    margin-top: 50px;
+    margin-top: 40px;
     font-size: 40px;
     color: white;
     display: flex;
@@ -84,6 +84,9 @@
     height: 300px;
     border-radius: 20px;
     text-align: center;
+}
+#main-desc{
+    font-size: 30px;
 }
 
 
