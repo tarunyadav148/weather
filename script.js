@@ -2,6 +2,7 @@ const city = document.getElementById("city");
 const currTemp = document.getElementById("curr-temp");
 const icon = document.getElementById("icon");
 const searchbox = document.querySelector(".search-box");
+const searchboxMobile = document.querySelector("#search-box-mobile");
 const description = document.getElementById("description")
 const feelsLike = document.getElementById("feels-like");
 const sunrise = document.getElementById("sunrise");
@@ -14,12 +15,6 @@ const alerts = document.getElementById("alert-data");
 const currLocationbtn = document.getElementById("curr-location");
 
 
-//keyup
-searchbox.addEventListener("keyup", function(event) {
-    if (event.keyCode === 13) {
-        searchEvent()
-    }
-});
 
 //render function
 function getTime(unixTime){
@@ -28,15 +23,15 @@ function getTime(unixTime){
 }
 function render(data){
     city.innerHTML = data["name"];
-    currTemp.innerHTML = data["main"]["temp"]+ "&#176c";
+    currTemp.innerHTML = data["main"]["temp"].toPrecision(3)+ "&#176c";
     iconCode = data["weather"][0]["icon"];
     icon.src = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
     description.innerHTML = data["weather"][0]["description"][0].toUpperCase()+data["weather"][0]["description"].substr(1);
-    maxTemp.innerHTML = data["main"]["temp_max"]+ "&#176c";
-    minTemp.innerHTML = data["main"]["temp_min"]+ "&#176c";
+    maxTemp.innerHTML = data["main"]["temp_max"].toPrecision(3)+ "&#176c";
+    minTemp.innerHTML = data["main"]["temp_min"].toPrecision(3)+ "&#176c";
     sunrise.innerHTML = getTime(data["sys"]["sunrise"]*1000);
     sunset.innerHTML  = getTime(data["sys"]["sunset"]*1000);
-    feelsLike.innerHTML = data["main"]["feels_like"] + "&#176c";
+    feelsLike.innerHTML = data["main"]["feels_like"].toPrecision(3) + "&#176c";
     humidity.innerHTML = data["main"]["humidity"] + "%";
     setHumidityStat(data["main"]["humidity"]);
     setVaiOneCallApi(data["coord"]["lat"],data["coord"]["lon"]);
@@ -55,7 +50,7 @@ function setVaiOneCallApi(lat,lon){
         res.json()
         .then(data => {
             let uviData = data["current"]["uvi"];
-            uvi.innerHTML = uviData;
+            uvi.innerHTML = Math.round(uviData);
             let uviStat = document.getElementById("uvi-stat");
             uviStat.style.strokeDashoffset = Math.abs(((10-uviData)/10)*565);
             if(data.hasOwnProperty("alerts"))
@@ -94,10 +89,25 @@ function renderByCurrentlaoction(){
 window.addEventListener('load',renderByCurrentlaoction);
 
 //on search
+searchbox.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        searchEvent(searchbox.id)
+    }
+});
+searchboxMobile.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        searchEvent(searchboxMobile.id)
+    }
+});
 
-function searchEvent(){
-    let cityName = document.querySelector(".search-box").value;
+
+function searchEvent(id){
+    let cityName = document.querySelector("#"+id).value;
     const URL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`;
+    
+    if(cityName==undefined||cityName==null||cityName==="")
+        return
+
     fetch(URL)
     .then((res)=>{
         if(res.ok){

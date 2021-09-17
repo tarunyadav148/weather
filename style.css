@@ -62,6 +62,14 @@
    
 }
 
+#search-box-mobile{
+    display:none;
+    margin-top: 50px;
+    font-size: 1.5em;
+    width: 300px;
+    border-radius: 10px;
+}
+
 .current-weather{
     margin-top: 50px;
     font-size: 40px;
@@ -232,6 +240,16 @@
     .current-weather,.other-info,.circular-stats,.alert{
         transform: scale(0.8,0.8);
         align-self:center;
+    }
+    .current-weather{
+        margin-top: 10px;
+    }
+    .search-box{
+        display: none;
+    }
+
+    #search-box-mobile{
+        display:block;
     }
 }
 
