@@ -68,7 +68,7 @@ function autocomplete(idSearch,idspotSearchBox){
     })
     
 
-    spotSearchBox.addEventListener("keypress",(e)=>{
+    spotSearchBox.addEventListener("keydown",(e)=>{
         if(spotSearchBox.value.length == 1)
             return
 
