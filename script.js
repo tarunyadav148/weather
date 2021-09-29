@@ -15,14 +15,11 @@ const alerts = document.getElementById("alert-data");
 const currLocationbtn = document.getElementById("curr-location");
 const mainDesc = document.getElementById("main-desc");
 
-document.documentElement.client
-
 //autocomplete
-// console.log(document.documentElement.clientWidth)
-// if(document.documentElement.clientWidth<=500)
+if(document.documentElement.clientWidth<=500)
     autocomplete('search-auto-mobile','search-box-mobile');
-// else
-//     autocomplete('search-auto','search-box-pc');
+else
+    autocomplete('search-auto','search-box-pc');
 
 
 
