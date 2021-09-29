@@ -57,20 +57,17 @@ function autocomplete(idSearch,idspotSearchBox){
 
     list.style.width =  searchDiv.style.width;
 
-
-    spotSearchBox.addEventListener("keydown",()=>{
-        if(spotSearchBox.value.length == 1)
-            removeAllChildNodes(list);
-    })
-
     spotSearchBox.addEventListener("input",()=>{
             removeAllChildNodes(list);
     })
     
 
     spotSearchBox.addEventListener("keydown",(e)=>{
-        if(spotSearchBox.value.length == 1)
-            return
+        if(spotSearchBox.value.length == 1){
+            removeAllChildNodes(list);
+            return;
+        }
+            
 
         fetch(getUrl(spotSearchBox.value), {
             "method": "GET",
