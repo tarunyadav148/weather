@@ -16,6 +16,14 @@ const currLocationbtn = document.getElementById("curr-location");
 const mainDesc = document.getElementById("main-desc");
 
 
+//autocomplete
+console.log(document.documentElement.clientWidth)
+if(document.documentElement.clientWidth<=500)
+    autocomplete('search-auto-mobile','search-box-mobile');
+else
+    autocomplete('search-auto','search-box-pc');
+
+
 
 //render function
 function getTime(unixTime){
@@ -23,7 +31,6 @@ function getTime(unixTime){
     return date.toLocaleTimeString('en-IN').toUpperCase();
 }
 function render(data){
-    console.log(data)
     city.innerHTML = data["name"];
     currTemp.innerHTML = data["main"]["temp"].toPrecision(3)+ "&#176c";
     iconCode = data["weather"][0]["icon"];
