@@ -3,29 +3,21 @@ function getUrl(city){
     return url
 }
 
-var spotSearchBox = null;
-var list = document.createElement("ul");
-list.style.listStyleType = "none";
-list.style.backgroundColor = "white";
-list.style.color = "black";
-
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
 }
 
-function listRender(List){
-
+function listRender(data,list,callback){
     removeAllChildNodes(list);
-
-
-    for(let item of List){
+    for(let item of data){
         let text = item['name'] + "," + item['country']['name'];
         let listitem = document.createElement("li");
 
         listitem.style.border = "1px solid #ccc";
-        listitem.style.fontSize = "20px"
+        listitem.style.fontSize = "20px";
+        listitem.style.padding = "3px"
         
         listitem.addEventListener("mouseover",(e)=>{
             e.preventDefault();
@@ -33,10 +25,8 @@ function listRender(List){
         })
 
         listitem.addEventListener("click",()=>{
-            spotSearchBox.value = listitem.textContent;
-            searchEvent(spotSearchBox.id)
+            callback(listitem.textContent);
             removeAllChildNodes(list);
-            spotSearchBox.value = "";
         });
 
 
@@ -46,16 +36,20 @@ function listRender(List){
     }
 }
 
-function autocomplete(idSearch,idspotSearchBox){
-
+function autocomplete(idSearch,idspotSearchBox,callback){
     const searchDiv =  document.getElementById(idSearch);
-    spotSearchBox = document.getElementById(idspotSearchBox);
+    const spotSearchBox = document.getElementById(idspotSearchBox);
 
-    searchDiv.appendChild(list);
+    let list = document.createElement("ul");
+    list.style.listStyleType = "none";
+    list.style.backgroundColor = "white";
+    list.style.color = "black";
     list.style.padding = "0";
     list.style.margin = "0";
-
     list.style.width =  searchDiv.style.width;
+    list.style.borderRadius = "10px"
+    
+    searchDiv.appendChild(list);
 
     spotSearchBox.addEventListener("input",()=>{
             removeAllChildNodes(list);
@@ -63,7 +57,7 @@ function autocomplete(idSearch,idspotSearchBox){
     
 
     spotSearchBox.addEventListener("keydown",(e)=>{
-        if(spotSearchBox.value.length == 1){
+        if(spotSearchBox.value.length <= 1){
             removeAllChildNodes(list);
             return;
         }
@@ -77,7 +71,7 @@ function autocomplete(idSearch,idspotSearchBox){
             }
         })
         .then(response => response.json())
-        .then(data => listRender(data))
+        .then(data => listRender(data,list,callback))
         .catch(err => {
             console.error(err);
         });

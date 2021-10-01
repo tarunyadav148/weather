@@ -16,10 +16,15 @@ const currLocationbtn = document.getElementById("curr-location");
 const mainDesc = document.getElementById("main-desc");
 
 //autocomplete
-if(document.documentElement.clientWidth<=500)
-    autocomplete('search-auto-mobile','search-box-mobile');
-else
-    autocomplete('search-auto','search-box-pc');
+autocomplete('search-auto-mobile','search-box-mobile',(listItemTextContent)=>{
+    document.querySelector("#"+searchboxMobile.id).value =  listItemTextContent;
+    searchEvent(searchboxMobile.id);
+});
+autocomplete('search-auto','search-box-pc',(listItemTextContent)=>{
+    document.querySelector("#"+searchbox.id).value =  listItemTextContent;
+    searchEvent(searchbox.id);
+});
+
 
 
 
